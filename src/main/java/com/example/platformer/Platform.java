@@ -1,4 +1,5 @@
 package com.example.platformer;
+//can you make a moving platformer class? I feel like it would be pretty cool
 
 import javafx.scene.shape.Rectangle;
 

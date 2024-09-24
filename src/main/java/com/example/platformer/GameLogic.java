@@ -6,6 +6,6 @@ import javafx.scene.Scene;
 public class GameLogic extends AnimationTimer{
     @Override
     public void handle(long l) {
-        
+
     }
 }

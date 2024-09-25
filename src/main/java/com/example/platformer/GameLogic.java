@@ -54,6 +54,10 @@ public class GameLogic extends AnimationTimer{
 
     private void update(){
         player.update();
+        double cameraX = player.getPlayerRect().getX() - 120;
+        gameScene.setTranslateX(-cameraX);
+        double cameraY = player.getPlayerRect().getY() - 200;
+        gameScene.setTranslateY(-cameraY);
     }
 
     public void start(){

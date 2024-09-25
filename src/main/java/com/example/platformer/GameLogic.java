@@ -13,6 +13,7 @@ public class GameLogic extends AnimationTimer{
     public GameLogic(GameScene gameScene, Player player,Platform[] platforms){
         this.gameScene = gameScene;
         this.player = player;
+        this.platforms = platforms;
         this.scene = gameScene.getScene();
         scene.setOnKeyPressed(event -> {
             switch (event.getCode()){
@@ -29,7 +30,7 @@ public class GameLogic extends AnimationTimer{
             }
 
         });
-        scene.setOnKeyPressed(event -> {
+        scene.setOnKeyReleased(event -> {
             switch (event.getCode()){
                 case LEFT:
                 case RIGHT:
@@ -45,7 +46,7 @@ public class GameLogic extends AnimationTimer{
     }
 
     @Override
-    public void handle(long l) {
+    public void handle(long now) {
         if (isRunning){
             update();
         }
@@ -58,6 +59,18 @@ public class GameLogic extends AnimationTimer{
         gameScene.setTranslateX(-cameraX);
         double cameraY = player.getPlayerRect().getY() - 200;
         gameScene.setTranslateY(-cameraY);
+        checkCollisions();
+
+    }
+
+    private void checkCollisions(){
+        for (Platform platform: platforms){
+            if (player.getPlayerRect().getBoundsInParent().intersects(platform.getPlatformRect().getBoundsInParent())) {
+                player.setYSpeed(0);
+            }
+
+        }
+
     }
 
     public void start(){

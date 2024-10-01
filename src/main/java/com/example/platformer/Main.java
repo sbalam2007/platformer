@@ -29,8 +29,40 @@ public class Main extends Application{
         root.getChildren().add(platformRect1);
         Platform platform1 = new Platform(platformRect1);
 
+        Rectangle platformRect2 = new Rectangle(300, 250, 200, 20);
+        root.getChildren().add(platformRect2);
+
+        Platform platform2 = new Platform(platformRect2);
+
+        Rectangle platformRect3 = new Rectangle(450, 200, 200, 20);
+        root.getChildren().add(platformRect3);
+
+        Platform platform3 = new Platform(platformRect3);
+
+        Rectangle platformRect4 = new Rectangle(600, 350, 200, 20);
+        root.getChildren().add(platformRect4);
+
+        Platform platform4 = new Platform(platformRect4);
+
+        MovingPlatform movingPlatform = new MovingPlatform(900, 300, 200, 20, 200);
+        root.getChildren().add(movingPlatform.getPlatformRect());
+
+        Rectangle platformRect5 = new Rectangle(1300, 400, 200, 20);
+        root.getChildren().add(platformRect5);
+        Platform platform5 = new Platform(platformRect5);
+
+
+
+
+        AnimationTimer timer = new AnimationTimer() {
+            @Override
+            public void handle(long now) {
+                movingPlatform.movePlatform();
+            }
+        };
+        timer.start();
         //list all platforms here
-        Platform[] platforms = {platform1};
+        Platform[] platforms = {platform1, platform2, platform3, platform4, movingPlatform, platform5};
 
         GameLogic gameLoop = new GameLogic(gameScene, player, platforms);
         gameLoop.start();

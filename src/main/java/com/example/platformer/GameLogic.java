@@ -59,8 +59,19 @@ public class GameLogic extends AnimationTimer{
         gameScene.setTranslateX(-cameraX);
         double cameraY = player.getPlayerRect().getY() - 200;
         gameScene.setTranslateY(-cameraY);
+        if (player.getPlayerRect().getY() + player.getPlayerRect().getHeight() < -2000 ){
+            respawnPlayer();
+        }
+        if (player.getPlayerRect().getY() + player.getPlayerRect().getHeight() > 2000 ){
+            respawnPlayer();
+        }
         checkCollisions();
 
+    }
+
+    private void respawnPlayer(){
+        player.getPlayerRect().setX(100);
+        player.getPlayerRect().setY(100);
     }
 
     private void checkCollisions(){

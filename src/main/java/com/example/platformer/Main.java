@@ -63,8 +63,14 @@ public class Main extends Application{
         timer.start();
         //list all platforms here
         Platform[] platforms = {platform1, platform2, platform3, platform4, movingPlatform, platform5};
+        Platform enemyPlatform = platforms[3];
+        Rectangle enemyRect = new Rectangle(enemyPlatform.getPlatformRect().getX() + 10, enemyPlatform.getPlatformRect().getY() - 20, 20, 20);
+        Enemy enemy1 = new Enemy(enemyRect, enemyPlatform, player);
+        root.getChildren().add(enemyRect);
+        //list all enemies here
+        Enemy[] enemies = {enemy1};
 
-        GameLogic gameLoop = new GameLogic(gameScene, player, platforms);
+        GameLogic gameLoop = new GameLogic(gameScene, player, platforms, enemies);
         gameLoop.start();
         primaryStage.setScene(scene);
         primaryStage.show();

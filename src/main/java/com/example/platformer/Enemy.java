@@ -32,7 +32,7 @@ public class Enemy {
         }
 
         enemyRect.setX(enemyRect.getX() + xSpeed);
-        
+
     }
 
 

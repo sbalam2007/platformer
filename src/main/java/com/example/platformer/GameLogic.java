@@ -8,12 +8,14 @@ public class GameLogic extends AnimationTimer{
     private Player player;
     private Platform[] platforms;
     private Scene scene;
+    private Enemy[] enemies;
     private boolean isRunning = true;
 
-    public GameLogic(GameScene gameScene, Player player,Platform[] platforms){
+    public GameLogic(GameScene gameScene, Player player,Platform[] platforms, Enemy[] enemies){
         this.gameScene = gameScene;
         this.player = player;
         this.platforms = platforms;
+        this.enemies = enemies;
         this.scene = gameScene.getScene();
         scene.setOnKeyPressed(event -> {
             switch (event.getCode()){
@@ -55,6 +57,9 @@ public class GameLogic extends AnimationTimer{
 
     private void update(){
         player.update();
+        for (Enemy enemy : enemies) {
+            enemy.update();
+        }
         double cameraX = player.getPlayerRect().getX() - 120;
         gameScene.setTranslateX(-cameraX);
         double cameraY = player.getPlayerRect().getY() - 200;
@@ -80,6 +85,11 @@ public class GameLogic extends AnimationTimer{
                 player.setYSpeed(0);
             }
 
+        }
+        for (Enemy enemy : enemies) {
+            if (player.getPlayerRect().getBoundsInParent().intersects(enemy.getEnemyRect().getBoundsInParent())) {
+                respawnPlayer();
+            }
         }
 
     }

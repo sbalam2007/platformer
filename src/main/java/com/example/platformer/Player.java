@@ -12,13 +12,10 @@ public class Player {
 
     public Player(Rectangle playerRect) {
         this.playerRect = playerRect;
-        playerColor = Color.BLACK; // Set the default color to red
+        playerColor = Color.GRAY;
         playerRect.setFill(playerColor);
     }
-    public void setColor(Color color) {
-        playerColor = color;
-        playerRect.setFill(playerColor);
-    }
+
 
     public void moveLeft() {
         xSpeed = -5;

@@ -4,7 +4,9 @@ import javafx.animation.AnimationTimer;
 import javafx.scene.Scene;
 
 public class GameLogic extends AnimationTimer{
+
     private GameScene gameScene;
+    private int numJumps = 0;
     private Player player;
     private Platform[] platforms;
     private Scene scene;
@@ -26,7 +28,10 @@ public class GameLogic extends AnimationTimer{
                     player.moveRight();
                     break;
                 case SPACE, UP:
-                    player.jump();
+                    if (numJumps <= 1){
+                        player.jump();
+                        numJumps++;
+                    }
                     break;
 
             }
@@ -80,9 +85,16 @@ public class GameLogic extends AnimationTimer{
     }
 
     private void checkCollisions(){
+        for (Platform platform : platforms) {
+            if (player.getPlayerRect().getBoundsInParent().intersects(platform.getPlatformRect().getBoundsInParent())) {
+                double penetrationDepth = player.getPlayerRect().getY() + player.getPlayerRect().getHeight() - platform.getPlatformRect().getY();
+                player.getPlayerRect().setY(player.getPlayerRect().getY() - penetrationDepth);
+            }
+        }
         for (Platform platform: platforms){
             if (player.getPlayerRect().getBoundsInParent().intersects(platform.getPlatformRect().getBoundsInParent())) {
                 player.setYSpeed(0);
+                numJumps = 0;
             }
 
         }

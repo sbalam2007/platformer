@@ -51,23 +51,37 @@ public class Main extends Application{
         root.getChildren().add(platformRect5);
         Platform platform5 = new Platform(platformRect5);
 
+        MovingPlatform movingPlatform2 = new MovingPlatform(1600, 500, 200, 20, 300);
+        root.getChildren().add(movingPlatform2.getPlatformRect());
 
+        MovingPlatform movingPlatform3 = new MovingPlatform(2200, 500, 200, 20, 400);
+        root.getChildren().add(movingPlatform3.getPlatformRect());
 
+        Rectangle platformRect6 = new Rectangle(2400, 400, 200, 20);
+        root.getChildren().add(platformRect6);
+        Platform platform6 = new Platform(platformRect6);
+
+        //list the moving platforms here if you make any
+        MovingPlatform[] movPlatforms = {movingPlatform, movingPlatform2, movingPlatform3};
 
         AnimationTimer timer = new AnimationTimer() {
             @Override
             public void handle(long now) {
-                movingPlatform.movePlatform();
+                for (MovingPlatform movPlat: movPlatforms){
+                    movPlat.movePlatform();
+                }
             }
         };
         timer.start();
         //list all platforms here
-        Platform[] platforms = {platform1, platform2, platform3, platform4, movingPlatform, platform5};
+        Platform[] platforms = {platform1, platform2, platform3, platform4, movingPlatform, platform5, movingPlatform2, movingPlatform3, platform6};
+
         Platform enemyPlatform = platforms[3];
         Rectangle enemyRect = new Rectangle(enemyPlatform.getPlatformRect().getX() + 10, enemyPlatform.getPlatformRect().getY() - 20, 20, 20);
         Enemy enemy1 = new Enemy(enemyRect, enemyPlatform, player);
         root.getChildren().add(enemyRect);
-        //list all enemies here
+
+        //list all enemies here, if you want to add more, don't add too many though
         Enemy[] enemies = {enemy1};
 
         GameLogic gameLoop = new GameLogic(gameScene, player, platforms, enemies);

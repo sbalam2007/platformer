@@ -89,15 +89,11 @@ public class GameLogic extends AnimationTimer{
             if (player.getPlayerRect().getBoundsInParent().intersects(platform.getPlatformRect().getBoundsInParent())) {
                 double penetrationDepth = player.getPlayerRect().getY() + player.getPlayerRect().getHeight() - platform.getPlatformRect().getY();
                 player.getPlayerRect().setY(player.getPlayerRect().getY() - penetrationDepth);
-            }
-        }
-        for (Platform platform: platforms){
-            if (player.getPlayerRect().getBoundsInParent().intersects(platform.getPlatformRect().getBoundsInParent())) {
                 player.setYSpeed(0);
                 numJumps = 0;
             }
-
         }
+
         for (Enemy enemy : enemies) {
             if (player.getPlayerRect().getBoundsInParent().intersects(enemy.getEnemyRect().getBoundsInParent())) {
                 respawnPlayer();

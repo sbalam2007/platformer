@@ -44,25 +44,39 @@ public class Main extends Application{
 
         Platform platform4 = new Platform(platformRect4);
 
-        MovingPlatform movingPlatform = new MovingPlatform(900, 300, 200, 20, 200);
+        MovingPlatform movingPlatform = new MovingPlatform(900, 300, 200, 20, 200, false);
         root.getChildren().add(movingPlatform.getPlatformRect());
 
         Rectangle platformRect5 = new Rectangle(1300, 400, 200, 20);
         root.getChildren().add(platformRect5);
         Platform platform5 = new Platform(platformRect5);
 
-        MovingPlatform movingPlatform2 = new MovingPlatform(1600, 500, 200, 20, 300);
+        MovingPlatform movingPlatform2 = new MovingPlatform(1600, 500, 200, 20, 300, false);
         root.getChildren().add(movingPlatform2.getPlatformRect());
 
-        MovingPlatform movingPlatform3 = new MovingPlatform(2200, 500, 200, 20, 400);
+        MovingPlatform movingPlatform3 = new MovingPlatform(2200, 500, 200, 20, 400, false);
         root.getChildren().add(movingPlatform3.getPlatformRect());
 
         Rectangle platformRect6 = new Rectangle(2400, 400, 200, 20);
         root.getChildren().add(platformRect6);
         Platform platform6 = new Platform(platformRect6);
 
+        MovingPlatform movingPlatform4 = new MovingPlatform(2800, 200, 200, 20, 400, true);
+        root.getChildren().add(movingPlatform4.getPlatformRect());
+
+        Rectangle platformRect7 = new Rectangle(3000, 400, 400, 20);
+        root.getChildren().add(platformRect7);
+        Platform platform7 = new Platform(platformRect7);
+
+        MovingPlatform movingPlatform5 = new MovingPlatform(3450, 50, 200, 20, 500, true);
+        root.getChildren().add(movingPlatform5.getPlatformRect());
+
+        Rectangle platformRect8 = new Rectangle(3600, -25, 400, 20);
+        root.getChildren().add(platformRect8);
+        Platform platform8 = new Platform(platformRect8);
+
         //list the moving platforms here if you make any
-        MovingPlatform[] movPlatforms = {movingPlatform, movingPlatform2, movingPlatform3};
+        MovingPlatform[] movPlatforms = {movingPlatform, movingPlatform2, movingPlatform3, movingPlatform4, movingPlatform5};
 
         AnimationTimer timer = new AnimationTimer() {
             @Override
@@ -73,16 +87,20 @@ public class Main extends Application{
             }
         };
         timer.start();
-        //list all platforms here
-        Platform[] platforms = {platform1, platform2, platform3, platform4, movingPlatform, platform5, movingPlatform2, movingPlatform3, platform6};
+        //list all platforms here including any moving platforms or else the player will just fall through
+        Platform[] platforms = {platform1, platform2, platform3, platform4, movingPlatform, platform5, movingPlatform2, movingPlatform3, platform6, movingPlatform4, platform7, movingPlatform5, platform8};
 
-        Platform enemyPlatform = platforms[3];
-        Rectangle enemyRect = new Rectangle(enemyPlatform.getPlatformRect().getX() + 10, enemyPlatform.getPlatformRect().getY() - 20, 20, 20);
-        Enemy enemy1 = new Enemy(enemyRect, enemyPlatform, player);
+
+        Rectangle enemyRect = new Rectangle(platforms[3].getPlatformRect().getX() + 10, platforms[3].getPlatformRect().getY() - 20, 20, 20);
+        Enemy enemy1 = new Enemy(enemyRect, platforms[3], player);
         root.getChildren().add(enemyRect);
 
+        Rectangle enemyRect2 = new Rectangle(platforms[8].getPlatformRect().getX() + 10, platforms[8].getPlatformRect().getY() - 20, 20, 20);
+        Enemy enemy2 = new Enemy(enemyRect2, platforms[8], player);
+        root.getChildren().add(enemyRect2);
+
         //list all enemies here, if you want to add more, don't add too many though
-        Enemy[] enemies = {enemy1};
+        Enemy[] enemies = {enemy1, enemy2};
 
         GameLogic gameLoop = new GameLogic(gameScene, player, platforms, enemies);
         gameLoop.start();

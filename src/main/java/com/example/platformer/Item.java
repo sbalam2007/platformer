@@ -1,3 +1,4 @@
+package com.example.platformer;
 public class Item {
     private String name;
 

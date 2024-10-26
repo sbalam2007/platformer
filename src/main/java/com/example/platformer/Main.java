@@ -102,7 +102,7 @@ public class Main extends Application{
         //list all enemies here, if you want to add more, don't add too many though
         Enemy[] enemies = {enemy1, enemy2};
 
-        GameLogic gameLoop = new GameLogic(gameScene, player, platforms, enemies);
+        GameLogic gameLoop = new GameLogic(gameScene, player, platforms, enemies, movPlatforms);
         gameLoop.start();
         primaryStage.setScene(scene);
         primaryStage.show();

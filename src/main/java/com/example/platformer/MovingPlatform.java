@@ -36,6 +36,7 @@ public class MovingPlatform extends Platform{
             }
         }
         else {
+            moveRight = false;
             if (moveUp){
                 platformRect.setY(platformRect.getY() + plat_Speed);
             }
@@ -49,5 +50,17 @@ public class MovingPlatform extends Platform{
                 distanceMoved = 0;
             }
         }
+    }
+
+    public boolean isMovingRight() {
+        return moveRight;
+    }
+
+    public double getPlatSpeed() {
+        return plat_Speed;
+    }
+
+    public boolean isVertical() {
+        return vertical;
     }
 }

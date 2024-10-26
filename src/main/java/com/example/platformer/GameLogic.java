@@ -9,15 +9,17 @@ public class GameLogic extends AnimationTimer{
     private int numJumps = 0;
     private Player player;
     private Platform[] platforms;
+    private MovingPlatform[] movingPlatforms;
     private Scene scene;
     private Enemy[] enemies;
     private boolean isRunning = true;
 
-    public GameLogic(GameScene gameScene, Player player,Platform[] platforms, Enemy[] enemies){
+    public GameLogic(GameScene gameScene, Player player,Platform[] platforms, Enemy[] enemies, MovingPlatform[] movingPlatforms){
         this.gameScene = gameScene;
         this.player = player;
         this.platforms = platforms;
         this.enemies = enemies;
+        this.movingPlatforms = movingPlatforms;
         this.scene = gameScene.getScene();
         scene.setOnKeyPressed(event -> {
             switch (event.getCode()){
@@ -97,6 +99,20 @@ public class GameLogic extends AnimationTimer{
         for (Enemy enemy : enemies) {
             if (player.getPlayerRect().getBoundsInParent().intersects(enemy.getEnemyRect().getBoundsInParent())) {
                 respawnPlayer();
+            }
+        }
+
+        for (MovingPlatform movingPlatform : movingPlatforms) {
+            if (!movingPlatform.isVertical()){
+                if (player.getPlayerRect().getBoundsInParent().intersects(movingPlatform.getPlatformRect().getBoundsInParent())) {
+                    double penetrationDepth = player.getPlayerRect().getY() + player.getPlayerRect().getHeight() - movingPlatform.getPlatformRect().getY();
+                    player.getPlayerRect().setY(player.getPlayerRect().getY() - penetrationDepth);
+                    player.setYSpeed(0);
+                    numJumps = 0;
+
+
+                    player.getPlayerRect().setX(player.getPlayerRect().getX() + (movingPlatform.isMovingRight() ? movingPlatform.getPlatSpeed() : -movingPlatform.getPlatSpeed()));
+                }
             }
         }
 
